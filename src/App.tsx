@@ -122,8 +122,8 @@ const Leaderboard = ({ data }: { data: LeaderboardEntry[] }) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th>TAG</th>
-          <th>Player</th>
+          <th colSpan={2}>Player</th>
+          <th>&nbsp;</th>
           <th>Stat Value</th>
           <th>Current World</th>
           <th>BR</th>
@@ -135,9 +135,12 @@ const Leaderboard = ({ data }: { data: LeaderboardEntry[] }) => {
           <tr>
             <td style={{ textAlign: "right" }}>
               {entry.outfit?.alias && <>[{entry.outfit.alias}]</>}
+              {entry.title && <> {entry.title.name.en}</>}&nbsp;
             </td>
             <td style={{ textAlign: "left" }}>
-              <b>{entry?.name?.first || "*Deleted*"}</b>{" "}
+              <b>{entry?.name?.first || "*Deleted*"}</b>
+            </td>
+            <td>
               <div
                 className={styles.tempFactionBox}
                 style={{ backgroundColor: factionToColor(entry.faction_id) }}
