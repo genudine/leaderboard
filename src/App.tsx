@@ -108,7 +108,11 @@ function App() {
           </button>
         </form>
       </header>
-      {leaderboard ? <Leaderboard data={leaderboard} /> : <EmptyBoard />}
+      {leaderboard ? (
+        <Leaderboard data={leaderboard} name={name} />
+      ) : (
+        <EmptyBoard />
+      )}
     </>
   );
 }
@@ -117,17 +121,22 @@ const EmptyBoard = () => {
   return <div>No leaderboard loaded, select it above</div>;
 };
 
-const Leaderboard = ({ data }: { data: LeaderboardEntry[] }) => {
+const Leaderboard = ({
+  data,
+  name,
+}: {
+  data: LeaderboardEntry[];
+  name: LeaderboardName;
+}) => {
   return (
     <table className={styles.table}>
       <thead>
         <tr>
-          <th colSpan={2}>Player</th>
-          <th>&nbsp;</th>
-          <th>Stat Value</th>
-          <th>Current World</th>
+          <th colSpan={3}>Player</th>
+          <th>{name}</th>
+          <th>Currrent World</th>
           <th>BR</th>
-          <th>Certs Gained</th>
+          <th>Certs</th>
         </tr>
       </thead>
       <tbody>
@@ -146,13 +155,13 @@ const Leaderboard = ({ data }: { data: LeaderboardEntry[] }) => {
                 style={{ backgroundColor: factionToColor(entry.faction_id) }}
               ></div>
             </td>
-            <td>{entry.value}</td>
+            <td>{Number(entry.value).toLocaleString()}</td>
             <td>{worldIdToName(Number(entry.world?.world_id))}</td>
             <td>
               {entry.battle_rank?.value}
               {+entry.prestige_level > 0 && <>~{entry.prestige_level}</>}
             </td>
-            <td>{entry.certs?.earned_points}</td>
+            <td>{Number(entry.certs?.earned_points).toLocaleString()}</td>
           </tr>
         ))}
       </tbody>
