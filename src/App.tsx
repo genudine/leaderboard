@@ -147,7 +147,13 @@ const Leaderboard = ({
               {entry.title && <> {entry.title.name.en}</>}&nbsp;
             </td>
             <td style={{ textAlign: "left" }}>
-              <b>{entry?.name?.first || "*Deleted*"}</b>
+              <b>
+                {entry?.name?.first || (
+                  <>
+                    <i>{entry.character_id}</i> 💀
+                  </>
+                )}
+              </b>
             </td>
             <td>
               <div
